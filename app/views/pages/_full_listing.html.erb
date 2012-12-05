@@ -1,0 +1,41 @@
+
+	<div class="view_listing_heading">Server:</div>
+	<div class="view_listing_info"><%=@post.server%></div>
+
+	<div class="view_listing_heading">Game Types:</div>
+	<div class="view_listing_info"><%= game_type_to_readable(@post) %></div>
+
+	<div class="view_listing_heading">Group Types:</div>
+	<div class="view_listing_info"><%= group_type_to_readable(@post) %></div>
+
+	<div class="view_listing_heading">Summoner Name:</div>
+	<div class="view_listing_info"><%=@post.summoner%></div>
+	 
+	<div class="view_listing_heading">Reddit Name:</div>
+	<div class="view_listing_info"><%=@post.reddit%></div>
+
+	<div class="view_listing_heading">Elo:</div>
+	<div class="view_listing_info"><%=@post.elo%></div>	
+
+
+	<div class="view_listing_heading">Roles mostly played:</div>
+	<div class="view_listing_info"><%= roles_to_readable(@post.roles_self) %></div>
+	<div class="view_listing_heading">Roles interested in playing with:</div>
+	<div class="view_listing_info"><%= roles_to_readable(@post.roles_looking) %></div>
+
+	
+	<div class="view_listing_heading">Usual days played:</div>
+	<div class="view_listing_info"><%=days_to_readable(@post)%></div>	
+	
+
+	<div class="view_listing_heading">Time zone:</div>
+	<div class="view_listing_info"><%=@post.time_zone%></div>
+
+	<div class="view_listing_heading">Usual times played:</div>
+	<div class="view_listing_info"><%= raw times_to_readable(@post) %></div>
+
+	<div class="view_listing_heading">Additional info:</div>
+	<div class="view_listing_info"><%=@post.additional_info%></div>
+
+	<div class="view_listing_heading">Listing originally created:</div>
+	<div class="view_listing_info"><%=@post.created_at.strftime("%A %B %d (%a %e/%m/%Y)")%></div>

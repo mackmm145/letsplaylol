@@ -1,0 +1,8 @@
+
+set up cron job
+create rake and mailer method/view with prolong listing link
+finish setting up listing mailer
+
+switch the times_play_readable to use dashes to block times together - done
+get server NA to default for new listing - done
+encrypt email - done

@@ -1,0 +1,11 @@
+<% unless @post.errors.blank? %>
+<div id="errors_main">
+	<ul>
+		<% @post.errors.each do |e,c| %>
+			<li><%= "#{e.to_s} #{c}" %></li>
+		<% end %>
+	</ul>
+
+</div>
+<% end %>
+<%= render 'listing_form' %>

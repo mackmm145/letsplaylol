@@ -1,0 +1,18 @@
+<p><%= @post.summoner %>,</p>
+
+<p>You have <%=@status%> a listing at <%=@host_name%>.</p>
+<p>Please keep in mind that there are no user accounts associated with your listing. The only way to alter your listing is by following links through this email or from an 'your listing is about to expire' email.</p>
+
+<p>Following the following links to make changes to your account.</p>
+<p>
+<%= link_to "Edit Listing", "#{@host}/edit_listing?token=#{@post.token}" %>
+</p>
+<p>
+<%= link_to "Delete Listing", "#{@host}/edit_listing?token=#{@post.token}&commit=Delete" %>
+</p>
+<p>Finally, bear in mind that your will recieve follow up emails about extending your listing time. If you do not want to recieve further emails from LetsPlayLoL, please simply delete your listing.</p>
+
+<p>If you're having trouble following the links, paste these urls into your browser:</p>
+
+<p>Edit Listing: <%= "#{@host}/edit_listing?token=#{@post.token}" %></p>
+<p>Delete Listing: <%= "#{@host}/edit_listing?token=#{@post.token}&commit=Delete" %></p>

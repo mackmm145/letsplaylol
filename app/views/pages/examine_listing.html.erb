@@ -1,0 +1,9 @@
+<%= render "full_listing" %>
+
+	<div class="view_listing_heading">
+		<% form_for(@post, :url =>  "/") do |f| %>
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+		<%= submit_tag "Home" %>
+		<% end %>
+	</div>

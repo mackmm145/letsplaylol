@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Let's Play LoL - Casual League of Legends</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery-ui-1.9.2.custom.min.js' %>
+  <%= javascript_include_tag 'jquery.validate.min.js' %>
+  <%= csrf_meta_tag %>
+
+  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+  <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+  <%= stylesheet_link_tag 'custom', :media => 'screen' %>
+
+<script type="text/javascript">
+$(function() {
+	$("div#header_main").click(function(){
+    	window.location = '/';
+    	return false;
+	});
+
+	$("div#create_button").click(function(){
+    	window.location = '/new_listing';
+    	return false;
+	});
+
+	$("div#search_button").click(function(){
+    	window.location = '/search';
+    	return false;
+	});
+});
+
+</script>
+
+
+  <%= yield :header %>
+</head>
+<body>
+	<div id="header_main">
+		
+		<div id="header_title">Let's Play LoL - Casual League of Legends</div>
+		<div id="header_phrase">A place for non-competitive summoners to find each other</div>
+	</div>
+	<div id="create_button" class="button_listing rounded_corners">Create Listing</div>
+
+	<div id="search_button" class="button_listing rounded_corners">Search Listing</div>
+	<div id="disclaimers">No user accounts nor passwords required to use this site / listings expire after 7 days unless renewed - <a id="disclaimer_more" href="/disclaimer">more info</a></div>
+
+	<div id="main">
+		<div id="flash_messages">
+			<% flash.each do |key, value| %>
+				<% unless key == :serialized %>
+					<div class="flash <%= key %>"><%= value %></div>
+				<% end %>
+			<% end %>
+		</div>
+		<%= yield %>
+	</div>
+</body>
+</html>

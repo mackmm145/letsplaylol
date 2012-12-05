@@ -1,0 +1,17 @@
+<h3>An email will be sent shortly to <%=@post.email%>. This email will be the only way to modify or delete your listing. Your listing has been save and will appear as follows:</h3>
+<div>
+	<%= render "full_listing" %>
+
+	<div class="view_listing_heading">
+		<%= form_for(@post, :url =>  "/edit_listing") do |f| %>
+		<%= hidden_field_tag :token, @post.token %>
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+		<%= submit_tag "Edit" %>
+		<div class="spacer"></div>
+		<%= submit_tag "Delete" %>
+		<div class="spacer"></div>
+		<%= submit_tag "Home" %>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<p><%=@post.summoner%>,</p>
+<br/>
+<p>Your listing at <%=@host_name%> is about to expire in a few days (<%= @post.expiration.strftime("%B %d") %>). If you would like to keep your listing from expiring, 
+<%= link_to "follow this link", "#{@host}/pages/prolong_listing?token=#{@post.token}" %>
+to extend the expiration date by another 7 days. You will recieve another email in the future asking if you want to extend your listing. Even if your listing has expired, you may follow the previous link to reactivate your listing as long as it's within 30 days from the expiration date.</p>
+
+<p>
+If you'd like to edit your listing, <%= link_to "follow this link", "#{@host}/pages/edit_listing?token=#{@post.token}" %>.
+</p>
+
+<p>
+Finally, if you'd like to delete your listing, <%= link_to "follow this link", "#{@host}/pages/edit_listing?token=#{@post.token}&commit=Delete" %>.
+</p>
+
+
+<p>If you're having trouble following the links, paste these urls into your browser:</p>
+<p>Extend Listing: <%="#{@host}/pages/prolong_listing?token=#{@post.token}" %></p>
+<p>Edit Listing: <%= "#{@host}/pages/edit_listing?token=#{@post.token}" %></p>
+<p>Delete Listing: <%= "#{@host}/pages/edit_listing?token=#{@post.token}&commit=Delete" %></p>
+

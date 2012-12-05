@@ -1,0 +1,143 @@
+<div id="new_listing_info">Listings available for 7 days. On the 5th day, you will recieve an email asking if you want to prolong your listing.</div>
+<div>
+<%= form_tag("/save_listing", :method => "post") do %>
+	<%= hidden_field_tag :token, @post.token %>
+	<div class="text_field_label"><span class="bold">Server*:</span></div></br>
+	<div class="radio_input">
+		<% ["NA", "EUWE","EUNE"].each do |v| %>
+		<% checked = (@post.server==v) ? true : false %>
+		<div class="radio_spacer"><%= radio_button_tag(:server, v.downcase, checked) %>
+		<%= label_tag(v.downcase, v) %></div>
+		<% end %>
+	</div>
+
+	<div class="spacer"></div>
+
+	<div class="text_field_label"><span class="bold">Looking for Game Type: </span></div></br>
+	<div class="radio_input">
+		<% gt_hash = {:sr=> "Summoner's Rift", :tt=> "Twisted Treeline", :dom=>"Dominion"} %>
+	    <%[:sr, :tt, :dom].each do |k| %>
+	    	<% checked = @post.game_type.include?(k.to_s) ? true : false %>
+	    	<div class="radio_spacer"><%= check_box_tag(k, "1" , checked) %>
+			<%= label_tag(k, gt_hash[k]) %></div>
+	    <% end %>
+	</div>
+
+<div class="spacer"></div>
+
+	<div class="text_field_label"><span class="bold">Looking for Group Type: </span></div></br>
+	<div class="radio_input">
+		<% gt_hash = {:duoq=>"Duo Queue Partner", :normals=>"Normals", :team=>"Team"}%>
+		<% [:duoq, :normals, :team].each do |k| %>
+		<% checked = @post.group_type.include?(k.to_s) ? true : false %>
+		<div class="radio_spacer"><%= check_box_tag(k, "1", checked) %>
+		<%= label_tag(k, gt_hash[k]) %></div>
+	    <% end %>
+	</div>
+
+	
+
+<div class="spacer"></div>
+  <div class="text_field">
+  	<div class="text_field_label"><%= label_tag(:email, "Email*:") %></div>
+  	<div class="text_field_input"><%= text_field_tag(:email, @post.email) %></div>
+  	<div class="text_field_detail">(Will not be visible to others and only used to edit / delete / prolong listings)</div>
+  </div>
+  <div class="text_field">
+  	<div class="text_field_label"><%= label_tag(:summoner, "Summoner*:") %></div>
+  	<div class="text_field_input"><%= text_field_tag(:summoner, @post.summoner) %></div>
+  </div>
+  <div class="text_field">
+  	<div class="text_field_label"><%= label_tag(:reddit, "Reddit Name:") %></div>
+  	<div class="text_field_input"><%= text_field_tag(:reddit, @post.reddit) %></div>
+  </div>
+  <div class="text_field">
+  	<div class="text_field_label"><%= label_tag(:elo, "Elo:") %></div>
+  	<div class="text_field_input"><%= text_field_tag(:elo, @post.elo) %></div>
+  	<div class="text_field_detail">(e.g. 'SoloQ:1200 3v3:1200' or just '1200')</div>
+  </div>
+
+  <div class="radio_spacer roles">
+	  <div class="text_field_label"><span class="bold">Roles I mostly play: </span></div></br>
+	  <div class="radio_input">
+	  	<% mr_hash = {:my_role_top=>"Top", 
+	  	   :my_role_jungle=> "Jungle",
+	  	   :my_role_mid=> "Mid",
+	  	   :my_role_adc=> "ADC",
+	  	   :my_role_support=> "Support" }%>
+
+	  	<%[:my_role_top, :my_role_jungle, :my_role_mid, :my_role_adc, :my_role_support].each do |k| %>
+		  	<% checked = @post.roles_self.include?(mr_hash[k].downcase) ? true : false %>
+			<div class="radio_spacer"><%= check_box_tag(k, "1", checked) %>
+		    <%= label_tag(k, mr_hash[k]) %></div>
+	    <% end %>
+	  </div>  
+  </div>
+  <div class="text_field_input roles">
+	  <div class="text_field_label"><span class="bold">Roles I'm looking for: </span></div></br>
+	  <div class="radio_input">
+	  	<% mr_hash = {:looking_role_top=>"Top", 
+	  	   :looking_role_jungle=> "Jungle",
+	  	   :looking_role_mid=> "Mid",
+	  	   :looking_role_adc=> "ADC",
+	  	   :looking_role_support=> "Support" }%>
+	    <%[:looking_role_top, :looking_role_jungle, :looking_role_mid, :looking_role_adc, :looking_role_support].each do |k| %>
+		  	<% checked = @post.roles_looking.include?(mr_hash[k].downcase) ? true : false %>
+			<div class="radio_spacer"><%= check_box_tag(k, "1", checked) %>
+		    <%= label_tag(k, mr_hash[k]) %></div>
+	    <% end %>
+	  </div>
+  </div>
+
+  <div class="spacer"></div>
+
+	<div class="text_field_label"><span class="bold">Days I Play: </span></div></br>
+	<div class="radio_input">
+		<% d_hash = {:mon=>"Monday", :tue=>"Tuesday", :wed=>"Wednesday", :thu=>"Thursday", :fri=>"Friday", :sat=>"Saturday", :sun=>"Sunday"}%>
+		<% [:mon, :tue, :wed, :thu, :fri, :sat, :sun].each do |k| %>
+			<% checked = @post.days_played.include?(k.to_s) ? true : false %>
+			<div class="radio_spacer"><%= check_box_tag(k, "1", checked) %>
+			<%= label_tag(k, d_hash[k]) %></div>
+	    <% end %>
+	</div>
+
+  <div class="spacer"></div>
+  <div class="text_field_label"><span class="bold">My Time Zone: </span></div></br>
+  <div class="text_field_input">
+  	<% @post.time_zone = @post.time_zone.blank? ? "Pacific Time (US & Canada)" : @post.time_zone %>
+    <%= time_zone_select(nil, :time_zone, ActiveSupport::TimeZone.us_zones, :default => @post.time_zone) %>
+  </div>
+
+  <% times = ["12am (0:00)", "1am (1:00)", "2am (2:00)", "3am (3:00)",  
+  			  "4am (4:00)","5am (5:00)", "6am (6:00)", "7am (7:00)",
+  			  "8am (8:00)","9am (9:00)", "10am (10:00)", "11am (11:00)",
+  			  "12pm (12:00)", "1pm (13:00)", "2pm (14:00)", "3pm (15:00)",
+  			  "4pm (16:00)", "5pm (17:00)", "6pm (18:00)", "7pm (19:00)",
+  			  "8pm (20:00)", "9pm (21:00)", "10pm (22:00)", "11pm (23:00)"]%>
+
+  <div class="spacer"></div>
+  <div class="text_field_label"><span class="bold">Times I play (in my time zone): </span></div>
+  <div class="text_field_input">
+  <% times.each_with_index do |val, index| %>
+    <%= raw("<div class='times_column'>") if index==0 || index==8 || index==16 %>
+    <% checked = @post.times_play.include?(time_zone_offset(index, @post.time_zone)) ? true : false %>
+  	<div class="times_spacer"><%= check_box_tag(("time" + index.to_s).to_sym, "1", checked) %>
+		<%= label_tag(("time" + index.to_s).to_sym, val) %></div>
+	<%= raw("</div>") if index==7 || index==15 || index==23 %>	
+  <% end %>
+  </div>
+  
+  <div class="spacer"></div>
+
+  <div class="text_field">
+  	<div class="text_field_label"><%= label_tag(:additonal_info, "Additional Info:") %></div>
+  	<div class="text_field_input"><%= text_area_tag(:additional_info, @post.additional_info) %></div>
+  </div>
+
+<div class="spacer"></div>
+
+  <div class="text_field">
+  	<%= submit_tag("Publish") %> By clicking publish, you agree that you do not hold the website and its creators liable for any use of this data (your email address will never be sold or given to others willfully)
+  </div>
+ </div>
+<% end %>
