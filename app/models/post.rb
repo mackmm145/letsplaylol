@@ -35,7 +35,58 @@ class Post < ActiveRecord::Base
     where("expiration <= ?", Time.now - 30.days)
   end
 
+  def self.search(post_params)
+    #i think i misdeveloped the database... search is going to be time consuming
+    #will need to refactor if traffic ever picks up
+
+    post = self.q_server(post_params[:server]).q_summoner(post_params[:summoner])
+    post = post.q_reddit(post_params[:reddit]).q_elo(post_params[:elo])
+    post = post.q_game_type(post_params).q_group_type(post_params)
+
+    #posts = posts.q_days_played(post_params)
+    #posts = posts.q_times_play(post_params)
+
+  end
+
 private
+  def self.q_server(name)
+    name.present? ? where("server LIKE ?", "%#{name.upcase}%") : where("")
+  end
+
+  def self.q_summoner(name)
+    name.present? ? where("LOWER(summoner) LIKE ?", "%#{name}%") : where("")
+  end
+
+  def self.q_reddit(name)
+    name.present? ? where("LOWER(reddit) LIKE ?", "%#{name}%") : where("")
+  end
+
+  def self.q_elo(t)
+    t.present? ? where("LOWER(elo) LIKE ?", "%#{t}%") : where("")
+  end
+
+  def self.q_game_type(p)
+    where(query_type_of_condition_string(p, [:sr, :tt, :dom], "game_type"))
+  end
+
+  def self.q_group_type(p)
+    where(query_type_of_condition_string(p, [:duoq, :normals, :team], "group_type"))
+  end
+
+  def self.query_type_of_condition_string(p, arr, field_name)
+    queries = []
+    vars = []
+
+    arr.each do |gt|
+      if p[gt].present?
+        queries << "#{field_name} LIKE ?"
+        vars = vars << "%#{gt.to_s}%"
+      end
+    end
+
+    s = [queries.join(' OR '), vars].flatten
+  end
+
   def two_random
       ActiveSupport::SecureRandom.base64(4)[0,5]
   end

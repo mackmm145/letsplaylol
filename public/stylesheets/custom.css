@@ -140,6 +140,7 @@ div.text_field_input {
 div.text_field_detail {
 	padding-top: 7px;
 	padding-left: 10px;
+	font-style: italic;
 	float: left;
 }
 

@@ -8,8 +8,9 @@ Letsplaylol::Application.routes.draw do
   match "edit_listing", :to => "pages#edit_listing"
   match "delete_listing", :to => "pages#delete_listing"
   match "examine_listing", :to => "pages#examine_listing"
-  get "search", :to => "pages#search"
   match "prolong_listing", :to => "pages#prolong_listing"
+  match "search_listing", :to => "pages#search_listing"
+  match "search", :to => "pages#search"
 
   # namespace 'pages' do
    

@@ -2,7 +2,31 @@ class PagesController < ApplicationController
 	#before_filter :delete_flash
 
 	def home
-		@posts = Post.not_expired.paginate :page => params[:page], :order => 'updated_at DESC'
+		p = Post.not_expired
+		@posts = p.paginate :page => params[:page], :order => 'updated_at DESC'
+	end
+
+	def search_listing
+		p = Post.not_expired
+
+		if params[:commit]=="Search"
+			p = p.search(params)
+		end
+
+		@posts = p.paginate :page => params[:page], :order => 'updated_at DESC'
+		render :action => :home
+	end
+
+	def search
+		@post = Post.new
+		@post.server = "NA"
+		@post.time_zone = "Pacific Time (US & Canada)"
+		@post.game_type = []
+		@post.group_type = []
+		@post.days_played = []
+		@post.times_play = []
+		@post.roles_self = []
+		@post.roles_looking = []
 	end
 
 	def new_listing
@@ -58,9 +82,6 @@ class PagesController < ApplicationController
         end
 	end
 
-	def editing_listing_mail
-	end
-
 	def edit_listing
 		delete_flash
 
@@ -99,16 +120,6 @@ class PagesController < ApplicationController
 		end
 
 
-	end
-
-	def update_listing
-	end
-
-	def delete_listing
-		
-	end
-
-	def search
 	end
 
 	def examine_listing
