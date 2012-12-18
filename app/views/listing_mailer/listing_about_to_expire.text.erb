@@ -1,12 +1,12 @@
 <%=@post.summoner%>,
 
 Your listing at <%=@host_name%> is about to expire in a few days. If you would like to keep your listing from expiring, 
-paste this url in your browser: <%= "#{@host}/pages/prolong_listing?token=#{@post.token}" %>
+paste this url in your browser: <%= "#{@host}/prolong_listing?token=#{@post.token}" %>
 
 This will extend the expiration date by another 7 days. You will recieve another email in the future asking if you want to extend your listing. Even if your listing has expired, you may follow the previous link to reactivate your listing as long as it's within 30 days from the expiration date.</p>
 
-If you'd like to edit your listing, paste this url in your browser: <%= "#{@host}/pages/edit_listing?token=#{@post.token}" %>.
+If you'd like to edit your listing, paste this url in your browser: <%= "#{@host}/edit_listing?token=#{@post.token}" %>.
 
 
-Finally, if you'd like to delete your listing, paste this url in your browser: <%= "#{@host}/pages/edit_listing?token=#{@post.token}&commit=Delete" %>.
+Finally, if you'd like to delete your listing, paste this url in your browser: <%= "#{@host}/edit_listing?token=#{@post.token}&commit=Delete" %>.
 
